@@ -4,16 +4,6 @@ var app 	= express();
 var path 	= require("path");
 var mysql   = require('mysql');
 
-//session stuff
-	var cookieParser = require('cookie-parser');
-
-	var session = require('express-session');
-
-	//allow sessions
-	router.use(session({ secret: 'app', cookie: { maxAge: 1*1000*60*60*24*365 }}));
-
-	router.use(cookieParser());
-
 app.set('view engine','ejs');
 //you need this to be able to process information sent to a POST route
 	var bodyParser = require('body-parser');
@@ -26,10 +16,14 @@ app.set('view engine','ejs');
 
 var path = require("path");
 
+app.get("/", function(req,res) {
+	res.sendFile(path.join(__dirname, "app/public/index.html"));
+});
 
 app.post("/submit", function(req,res) {
-	console.log(req);
-})
+	console.log(req.body)
+   res.send('hi');
+});
 
 app.listen(3000, function(){
 	console.log('listening on 3000');
